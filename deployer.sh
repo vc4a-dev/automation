@@ -48,7 +48,7 @@ billz/mu-plugins.git)
   ;;
 billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
-  JS_COMMANDS=""
+  JS_COMMANDS="pwd"
   ;;
 esac
 
