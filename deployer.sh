@@ -60,7 +60,7 @@ echo $JS_COMMANDS
 SCRIPT="#!/bin/sh \n
 echo 'Entering to sub path' \n
 cd $SUB_PATH || exit 1 \n
-echo 'Checkout to branch'
+echo 'Checkout to branch' \n 
 sudo git checkout -f . || git checkout -f $CURRENT_BRANCH \n
 echo 'Update the branch' \n
 ( sudo git pull || sudo git pull ) || exit 1 \n
