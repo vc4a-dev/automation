@@ -28,13 +28,13 @@ git pull origin $CURRENT_BRANCH
 echo "Automatically merging commit $LAST_COMMIT from $CURRENT_BRANCH rippling to sub-branches"
 case $CURRENT_BRANCH in
 production)
-  ( git checkout -f master && git pull origin master && git merge --squash $CURRENT_BRANCH && git push origin master ) || ( echo "auto merge failed." && exit 1 )
+  ( git checkout -f master && git pull origin master && git merge --squash $CURRENT_BRANCH && git commit -m "auto merge with $CURRENT_BRANCH" && git push origin master ) || ( echo "auto merge failed." && exit 1 )
   ;;
 master)
-  ( git checkout -f staging && git pull origin staging && git merge --squash $CURRENT_BRANCH && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
+  ( git checkout -f staging && git pull origin staging && git merge --squash $CURRENT_BRANCH && git commit -m "auto merge with $CURRENT_BRANCH" && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
   ;;
 staging)
-  ( git checkout -f development && git pull origin development && git merge --squash $CURRENT_BRANCH && git push origin development ) || ( echo "auto merge failed." && exit 1 )
+  ( git checkout -f development && git pull origin development && git merge --squash $CURRENT_BRANCH && git commit -m "auto merge with $CURRENT_BRANCH" && git push origin development ) || ( echo "auto merge failed." && exit 1 )
   ;;
 esac
 
