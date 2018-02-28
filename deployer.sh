@@ -46,7 +46,7 @@ billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
   JS_COMMANDS="sudo composer update"
   ;;
-billz/plugins.git)
+billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
   JS_COMMANDS=""
   ;;
