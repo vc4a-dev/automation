@@ -32,19 +32,19 @@ MAIN_PATH="/var/www/html/"${URL}
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/vc4africa"
-  JS_COMMANDS="npm install && gulp build"
+  JS_COMMANDS="sudo npm install && sudo gulp build"
   ;;
 billz/theme-academy.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/academy"
-  JS_COMMANDS="npm install && gulp build"
+  JS_COMMANDS="sudo npm install && sudo gulp build"
   ;;
 billz/consulting.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
-  JS_COMMANDS="npm install && gulp build"
+  JS_COMMANDS="sudo npm install && sudo gulp build"
   ;;
 billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  JS_COMMANDS="composer update"
+  JS_COMMANDS="sudo composer update"
   ;;
 billz/plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
@@ -65,7 +65,7 @@ sudo git checkout -f . || git checkout -f $CURRENT_BRANCH \n
 echo 'Update the branch' \n
 ( sudo git pull || sudo git pull ) || exit 1 \n
 echo 'Execute Javascript task runner commands' \n
-( sudo $JS_COMMANDS || sudo $JS_COMMANDS ) || exit 1 \n
+( $JS_COMMANDS || $JS_COMMANDS ) || exit 1 \n
 echo 'Set folder ownerships' \n
 ( sudo chown -R www-data:deploy $MAIN_PATH ) || exit 1 \n
 "
