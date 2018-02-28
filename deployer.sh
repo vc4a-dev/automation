@@ -38,7 +38,7 @@ billz/theme-academy.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/academy"
   JS_COMMANDS="sudo npm install && sudo gulp build"
   ;;
-billz/consulting.git)
+billz/vc4a-service-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
   JS_COMMANDS="sudo npm install && sudo gulp build"
   ;;
