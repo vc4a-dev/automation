@@ -2,9 +2,9 @@
 # Check php syntax
 
 # always good to know where are we and who are we!
-echo 'Who am I ?'
+echo "Who am I ?"
 whoami
-echo 'Where am I ?'
+echo "Where am I ?"
 pwd
 
 GIT_PREVIOUS_COMMIT=$1
