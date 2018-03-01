@@ -10,6 +10,10 @@ pwd
 GIT_PREVIOUS_COMMIT=$1
 GIT_COMMIT=$2
 REPOSITORY_URL=$3
+if [ $GIT_PREVIOUS_COMMIT = $GIT_COMMIT ]
+then
+  GIT_PREVIOUS_COMMIT=$(git rev-list -2 --skip=1 --max-count=1 HEAD)
+fi
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 
