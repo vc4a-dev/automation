@@ -14,7 +14,7 @@ REPOSITORY_NAME=${REPOSITORY_URL:19}
 
 case $CURRENT_BRANCH in
 development)
-  'development branch does not have any sub-branches. Skipping operation.'
+  echo "development branch does not have any sub-branches. Skipping operation."
   exit 0
   ;;
 esac
