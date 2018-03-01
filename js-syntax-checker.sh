@@ -30,7 +30,7 @@ git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 echo "changed js files"
 git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$
 
-( ( (git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ) | (grep .js$ | grep -v node_modules/ | grep -v gulpfile.babel.js ) ) | xargs -n1 echo esvalidate | bash ) | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected"
+( ( (git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ) | (grep .js$ | grep -v node_modules/ | grep -v gulpfile.babel.js ) ) | xargs -n1 echo esvalidate | bash ) | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
 
 
 echo "no js syntax errors detected" && exit 0
