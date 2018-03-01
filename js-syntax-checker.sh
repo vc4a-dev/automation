@@ -12,7 +12,8 @@ GIT_COMMIT=$2
 REPOSITORY_URL=$3
 if [ $GIT_PREVIOUS_COMMIT = $GIT_COMMIT ]
 then
-GIT_PREVIOUS_COMMIT=$(git rev-list -2 --skip=1 --max-count=1 HEAD)
+  # let's assume going back to 30 commits would be enough for covering even an exceptional huge PR case.
+  GIT_PREVIOUS_COMMIT=$(git rev-list -30 --skip=29 --max-count=1 HEAD)
 fi
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
