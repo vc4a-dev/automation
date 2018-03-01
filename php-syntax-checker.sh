@@ -19,7 +19,7 @@ echo "Fetching all"
 git fetch --all
 
 echo "changed files"
-echo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
+git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different php files only
 echo "changed php files"
