@@ -1,5 +1,5 @@
 #!/bin/sh
-# Check php syntax
+# Check php syntax for changed files with latest commits only.
 
 # always good to know where are we and who are we!
 echo "Who am I ?"
