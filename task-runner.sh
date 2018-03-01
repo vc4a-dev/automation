@@ -35,4 +35,5 @@ echo "Executing task runner commands"
 echo $JS_COMMANDS
 echo $( ( $JS_COMMANDS || $JS_COMMANDS ) || ( echo "TASK RUNNER COMMANDS FAILED " && exit 1) )
 # remove sed replacements
-git checkout -f .
+git checkout -f . || git checkout -f . || ( echo 'git checkout failed' && exit 1 )
+echo "Task runner commands are succeeded."
