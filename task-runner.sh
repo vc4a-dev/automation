@@ -13,7 +13,7 @@ CURRENT_BRANCH=$2
 if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
 echo "For pull reqeusts we will use default current branch master";
-CURRENT_BRANCH=""
+CURRENT_BRANCH="master"
 fi
 
 GULP_COMMANDS=""
