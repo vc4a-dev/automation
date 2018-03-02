@@ -10,6 +10,12 @@ REPOSITORY_URL=$1
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
 
+if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
+then
+echo "For pull reqeusts we will use default current branch master";
+CURRENT_BRANCH=""
+fi
+
 GULP_COMMANDS=""
 NPM_COMMANDS=""
 COMPOSER_COMMANDS=""
