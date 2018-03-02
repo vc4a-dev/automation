@@ -5,12 +5,12 @@
 whoami
 pwd
 
+SCRIPT_NAME=$(basename "$0")
+echo "script name ${SCRIPT_NAME}"
 CURRENT_BRANCH=$1
-LAST_COMMIT=$(git rev-list -1 HEAD)
 REPOSITORY_URL=$2
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
-
 
 case $CURRENT_BRANCH in
 production)
@@ -29,52 +29,122 @@ esac
 
 MAIN_PATH="/var/www/html/"${URL}
 
+GULP_COMMANDS=""
+NPM_COMMANDS=""
+COMPOSER_COMMANDS=""
+
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/vc4africa"
-  JS_COMMANDS="sudo npm install && sudo gulp build"
+  NPM_COMMANDS="sudo npm install"
+  GULP_COMMANDS="sudo gulp build"
   ;;
 billz/theme-academy.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/academy"
-  JS_COMMANDS="sudo npm install && sudo gulp build"
+  NPM_COMMANDS="sudo npm install"
+  GULP_COMMANDS="sudo gulp build"
   ;;
 billz/vc4a-service-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
-  JS_COMMANDS="pwd"
   ;;
 billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  JS_COMMANDS="sudo composer update"
+  COMPOSER_COMMANDS="sudo composer update"
   ;;
 billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
-  JS_COMMANDS="pwd"
   ;;
 esac
 
-echo $URL
-echo $MAIN_PATH
-echo $SUB_PATH
-echo $JS_COMMANDS
+if [ $SCRIPT_NAME != "deployer.sh" ];
+then
 
-SCRIPT="#!/bin/sh \n
-echo 'Entering to sub path' \n
-cd $SUB_PATH || exit 1 \n
-echo 'Checkout to branch' \n 
-sudo git checkout -f . || git checkout -f $CURRENT_BRANCH \n
-echo 'Update the branch' \n
-( sudo git pull || sudo git pull ) || exit 1 \n
-echo 'Execute Javascript task runner commands' \n
-( $JS_COMMANDS || $JS_COMMANDS ) || exit 1 \n
-echo 'Set folder ownerships' \n
-( sudo chown -R www-data:deploy $MAIN_PATH ) || exit 1 \n
-"
+    echo 'Entering to sub path'
+    echo "cd $SUB_PATH"
+    cd $SUB_PATH || exit 1
+    exitcode=$?
+    if [ $exitcode != 0 ];
+        then
+        echo "Entering to $SUB_PATH failed"
+        exit $exitcode;
+    fi
 
-if [ -e dynamic_deploy.sh ]; then
-  rm dynamic_deploy.sh
+#    echo "Checkout to branch"
+#    echo "sudo git checkout -f ."
+#    sudo git checkout -f . || sudo git checkout -f $CURRENT_BRANCH || exit 1
+#    exitcode=$?
+#    if [ $exitcode != 0 ];
+#        then
+#        echo "Checkout to branch failed"
+#        exit $exitcode;
+#    fi
+
+#    echo "Update the branch"
+#    echo "sudo git pull"
+#    sudo git pull || sudo git pull || exit 1
+#    exitcode=$?
+#    if [ $exitcode != 0 ];
+#        then
+#        echo "Update the branch failed"
+#        exit $exitcode;
+#    fi
+
+    echo "Executing task runner commands"
+    if [ -n "$NPM_COMMANDS" ];
+    then
+    echo $NPM_COMMANDS;
+    $NPM_COMMANDS || $NPM_COMMANDS || exit 1
+    exitcode=$?
+        if [ $exitcode != 0 ];
+            then
+            echo "$NPM_COMMANDS failed"
+            exit $exitcode;
+        fi
+    fi
+
+    if [ -n "$GULP_COMMANDS" ];
+    then
+    echo $GULP_COMMANDS;
+    $GULP_COMMANDS || $GULP_COMMANDS || exit 1
+    exitcode=$?
+        if [ $exitcode != 0 ];
+            then
+            echo "$GULP_COMMANDS failed"
+            exit $exitcode;
+        fi
+    fi
+
+    if [ -n "$COMPOSER_COMMANDS" ];
+    then
+    echo $COMPOSER_COMMANDS;
+    $COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
+    exitcode=$?
+        if [ $exitcode != 0 ];
+            then
+            echo "$COMPOSER_COMMANDS failed"
+            exit $exitcode;
+        fi
+    fi
+
+    echo 'Set folder ownerships'
+    sudo chown -R www-data:deploy $MAIN_PATH || exit 1
+    if [ $exitcode != 0 ];
+        then
+        echo "Set folder ownerships failed"
+        exit $exitcode;
+    fi
 fi
 
-echo -e $SCRIPT >> dynamic_deploy.sh
+if [ $SCRIPT_NAME = "deployer.sh" ];
+then
+    if [ -e dynamic_deploy.sh ]; then
+      sudo rm -f dynamic_deploy.sh
+    fi
 
+    sudo cp -avr deployer.sh dynamic_deploy.sh
+fi
 
-( ssh deploy@${URL} 'bash -s' < dynamic_deploy.sh ) || ( echo 'deployment is failed' && exit 1 )
+if [ $SCRIPT_NAME = "deployer.sh" ];
+then
+( ssh deploy@${URL} 'bash -s' < dynamic_deploy.sh ${CURRENT_BRANCH} ${REPOSITORY_URL} ) || ( echo 'deployment is failed' && exit 1 )
+fi
