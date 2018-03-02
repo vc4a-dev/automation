@@ -69,25 +69,25 @@ then
         exit $exitcode;
     fi
 
-#    echo "Checkout to branch"
-#    echo "sudo git checkout -f ."
-#    sudo git checkout -f . || sudo git checkout -f $CURRENT_BRANCH || exit 1
-#    exitcode=$?
-#    if [ $exitcode != 0 ];
-#        then
-#        echo "Checkout to branch failed"
-#        exit $exitcode;
-#    fi
+    echo "Checkout to branch"
+    echo "sudo git checkout -f ."
+    sudo git checkout -f . || sudo git checkout -f $CURRENT_BRANCH || exit 1
+    exitcode=$?
+    if [ $exitcode != 0 ];
+        then
+        echo "Checkout to branch failed"
+        exit $exitcode;
+    fi
 
-#    echo "Update the branch"
-#    echo "sudo git pull"
-#    sudo git pull || sudo git pull || exit 1
-#    exitcode=$?
-#    if [ $exitcode != 0 ];
-#        then
-#        echo "Update the branch failed"
-#        exit $exitcode;
-#    fi
+    echo "Update the branch"
+    echo "sudo git pull"
+    sudo git pull || sudo git pull || exit 1
+    exitcode=$?
+    if [ $exitcode != 0 ];
+        then
+        echo "Update the branch failed"
+        exit $exitcode;
+    fi
 
     echo "Executing task runner commands"
     if [ -n "$NPM_COMMANDS" ];
