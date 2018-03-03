@@ -25,7 +25,7 @@ git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 echo "Fetching all"
 git fetch --all
 
-echo "changed files"
+echo "all changed files"
 git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different php files only
