@@ -19,6 +19,8 @@ fi
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 git config --unset remote.origin.fetch
 git remote set-url origin git@github.com:${REPOSITORY_NAME}
+echo "track all"
+sudo git branch -r | grep -v '\->' | while read remote; do sudo git branch --track "${remote#origin/}" "$remote"; done
 git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 echo "Fetching all"
 git fetch --all
