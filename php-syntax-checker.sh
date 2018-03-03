@@ -17,7 +17,7 @@ then
 fi
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
-
+git config --unset remote.origin.fetch
 git remote set-url origin git@github.com:${REPOSITORY_NAME}
 git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 echo "Fetching all"
