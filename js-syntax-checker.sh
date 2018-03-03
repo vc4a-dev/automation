@@ -26,20 +26,13 @@ sudo git branch -r | grep -v '\->' | while read remote; do sudo git branch --tra
 echo "Fetching all"
 sudo git fetch --all
 
-echo "all changed files"
+echo "All changed files"
 sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different php files only
-echo "changed js files"
+echo "Changed js files"
 sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$
 
-( ( (sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ) | (grep .js$ | grep -v node_modules/ | grep -v gulpfile.babel.js ) ) | xargs -n1 echo esvalidate | bash ) | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
-
-exitcode=$?
-if [ $exitcode != 0 ];
-    then
-    echo "syntax errors detected"
-    exit $exitcode;
-fi
+sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v node_modules/ | grep -v gulpfile.babel.js | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
 
 echo "no js syntax errors detected" && exit 0

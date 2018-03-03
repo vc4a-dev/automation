@@ -26,20 +26,13 @@ sudo git branch -r | grep -v '\->' | while read remote; do sudo git branch --tra
 echo "Fetching all"
 sudo git fetch --all
 
-echo "all changed files"
+echo "All changed files"
 sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different php files only
-echo "changed php files"
+echo "Changed php files"
 sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .php$
 
-( ( sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT  $GIT_COMMIT | grep .php$ ) | xargs -n1 echo php -l | bash ) |  (grep -v "No syntax errors detected" ) && echo "PHP Syntax error(s) detected" && exit 1
-
-exitcode=$?
-if [ $exitcode != 0 ];
-    then
-    echo "syntax errors detected"
-    exit $exitcode;
-fi
+sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT  $GIT_COMMIT | grep .php\$ | xargs -n1 echo php -l | bash | grep -v "No syntax errors detected"  && echo "PHP Syntax error(s) detected" && exit 1
 
 echo "no syntax errors detected" && exit 0
