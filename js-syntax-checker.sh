@@ -35,5 +35,11 @@ sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | 
 
 ( ( (sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT ) | (grep .js$ | grep -v node_modules/ | grep -v gulpfile.babel.js ) ) | xargs -n1 echo esvalidate | bash ) | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
 
+exitcode=$?
+if [ $exitcode != 0 ];
+    then
+    echo "syntax errors detected"
+    exit $exitcode;
+fi
 
 echo "no js syntax errors detected" && exit 0
