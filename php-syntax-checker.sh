@@ -17,21 +17,22 @@ then
 fi
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
-git config --unset remote.origin.fetch
-git remote set-url origin git@github.com:${REPOSITORY_NAME}
+sudo git config --unset-all remote.origin.fetch
+sudo git remote set-url origin git@github.com:${REPOSITORY_NAME}
+sudo git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 echo "track all"
 sudo git branch -r | grep -v '\->' | while read remote; do sudo git branch --track "${remote#origin/}" "$remote"; done
-git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+
 echo "Fetching all"
-git fetch --all
+sudo git fetch --all
 
 echo "all changed files"
-git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
+sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different php files only
 echo "changed php files"
-git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .php$
+sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .php$
 
-( ( git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT  $GIT_COMMIT | grep .php$ ) | xargs -n1 echo php -l | bash ) |  (grep -v "No syntax errors detected" ) && echo "PHP Syntax error(s) detected" && exit 1
+( ( sudo git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT  $GIT_COMMIT | grep .php$ ) | xargs -n1 echo php -l | bash ) |  (grep -v "No syntax errors detected" ) && echo "PHP Syntax error(s) detected" && exit 1
 
 echo "no syntax errors detected" && exit 0
