@@ -15,6 +15,11 @@ WORKSPACE_DIR_COUNT=${#WORKSPACE_DIR}
 # make sure we are not executing rm -rf /
 if [ "$WORKSPACE_DIR_COUNT" -gt "$DEFAULT_JENKINS_DIR_COUNT" ]; then
 sudo rm -rf $WORKSPACE_DIR
+echo "Folder removed : ${WORKSPACE_DIR}
 mkdir $WORKSPACE_DIR
+echo "Empty folder created : ${WORKSPACE_DIR}
+exit 0;
 fi
 
+echo "Folders can not be removed"
+exit 1;
