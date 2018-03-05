@@ -15,4 +15,6 @@ WORKSPACE_DIR_COUNT=${#WORKSPACE_DIR}
 # make sure we are not executing rm -rf /
 if [ "$WORKSPACE_DIR_COUNT" -gt "$DEFAULT_JENKINS_DIR_COUNT" ]; then
 sudo rm -rf $WORKSPACE_DIR
+mkdir $WORKSPACE_DIR
 fi
+
