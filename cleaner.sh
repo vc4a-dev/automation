@@ -19,7 +19,7 @@ sudo rm -rf $WORKSPACE_DIR/*
 sudo rm -rf $WORKSPACE_DIR/.g*
 echo "Folders removed : ${WORKSPACE_DIR}
 sudo chown -R jenkins:jenkins $WORKSPACE_DIR
-echo "Empty folder created : ${WORKSPACE_DIR}
+echo "Ownership set as jenkins:jenkins : ${WORKSPACE_DIR}
 exit 0;
 fi
 
