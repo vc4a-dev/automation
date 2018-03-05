@@ -7,5 +7,12 @@ whoami
 echo "Where am I ?"
 pwd
 
+DEFAULT_JENKINS_DIR="/var/lib/jenkins"
+DEFAULT_JENKINS_DIR_COUNT=${#DEFAULT_JENKINS_DIR}
 WORKSPACE_DIR=$(pwd)
-echo $WORKSPACE_DIR
+WORKSPACE_DIR_COUNT=${#WORKSPACE_DIR}
+
+# make sure we are not executing rm -rf /
+if [ "$WORKSPACE_DIR_COUNT" -gt "$DEFAULT_JENKINS_DIR_COUNT" ]; then
+sudo rm -rf $WORKSPACE_DIR
+fi
