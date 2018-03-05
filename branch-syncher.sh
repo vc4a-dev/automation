@@ -6,6 +6,10 @@
 whoami
 pwd
 
+#set permissions and ownerships
+sudo chown -R jenkins:jenkins ../
+sudo chmod -R 777 ../
+
 CURRENT_BRANCH=$1
 LAST_COMMIT=$(git rev-list -1 HEAD)
 REPOSITORY_URL=$2
