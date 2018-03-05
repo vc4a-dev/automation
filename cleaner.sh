@@ -15,9 +15,10 @@ WORKSPACE_DIR_COUNT=${#WORKSPACE_DIR}
 # make sure we are not executing rm -rf /
 if [ "$WORKSPACE_DIR_COUNT" -gt "$DEFAULT_JENKINS_DIR_COUNT" ]; then
 echo "Exeucting folder removal and re-creation."
-sudo rm -rf $WORKSPACE_DIR
-echo "Folder removed : ${WORKSPACE_DIR}
-mkdir $WORKSPACE_DIR
+sudo rm -rf $WORKSPACE_DIR/*
+sudo rm -rf $WORKSPACE_DIR/.*
+echo "Folders removed : ${WORKSPACE_DIR}
+sudo chown -R jenkins:jenkins $WORKSPACE_DIR
 echo "Empty folder created : ${WORKSPACE_DIR}
 exit 0;
 fi
