@@ -49,7 +49,7 @@ billz/vc4a-service-theme.git)
   ;;
 billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  COMPOSER_COMMANDS="sudo composer update"
+  COMPOSER_COMMANDS="sudo hhvm composer.phar update"
   ;;
 billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
@@ -116,6 +116,8 @@ then
 
     if [ -n "$COMPOSER_COMMANDS" ];
     then
+    rm -f composer.phar
+    sudo wget https://getcomposer.org/download/1.6.3/composer.phar
     echo $COMPOSER_COMMANDS;
     $COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
     exitcode=$?
