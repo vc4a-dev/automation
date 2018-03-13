@@ -40,7 +40,9 @@ billz/vc4a-service-theme.git)
   echo "no commands available for vc4a-service-theme"
   ;;
 billz/mu-plugins.git)
-  COMPOSER_COMMANDS="sudo composer update"
+  rm -f composer.phar
+  sudo wget https://getcomposer.org/download/1.6.3/composer.phar
+  COMPOSER_COMMANDS="sudo hhvm composer.phar update"
   sed -i -e 's/\.\.\///g' composer.json
   sudo rm -rf plugins
   sudo rm -rf themes
