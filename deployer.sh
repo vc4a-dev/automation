@@ -71,7 +71,9 @@ then
 
     echo "Checkout to branch"
     echo "sudo git checkout -f ."
-    sudo git checkout -f . || sudo git checkout -f $CURRENT_BRANCH || exit 1
+    sudo git checkout -f . || sudo git checkout -f . || exit 1
+    echo "sudo git checkout -f $CURRENT_BRANCH"
+    sudo git checkout -f $CURRENT_BRANCH || sudo git checkout -f $CURRENT_BRANCH || exit 1
     exitcode=$?
     if [ $exitcode != 0 ];
         then
