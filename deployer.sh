@@ -118,7 +118,7 @@ then
 
     if [ -n "$COMPOSER_COMMANDS" ];
     then
-    rm -f composer.phar
+    sudo rm -f composer.phar
     sudo wget https://getcomposer.org/download/1.6.3/composer.phar
     echo $COMPOSER_COMMANDS;
     $COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
