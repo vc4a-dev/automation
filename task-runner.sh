@@ -42,7 +42,7 @@ billz/vc4a-service-theme.git)
 billz/mu-plugins.git)
   rm -f composer.phar
   sudo wget https://getcomposer.org/download/1.6.3/composer.phar
-  COMPOSER_COMMANDS="sudo hhvm composer.phar update"
+  COMPOSER_COMMANDS="sudo hhvm -d hhvm.jit=0 composer.phar update"
   sed -i -e 's/\.\.\///g' composer.json
   sudo rm -rf plugins
   sudo rm -rf themes
