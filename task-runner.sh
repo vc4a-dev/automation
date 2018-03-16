@@ -81,7 +81,7 @@ fi
 if [ -n "$COMPOSER_COMMANDS" ];
 then
 echo $COMPOSER_COMMANDS;
-$COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
+$COMPOSER_COMMANDS || $COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
 exitcode=$?
     if [ $exitcode != 0 ];
         then
