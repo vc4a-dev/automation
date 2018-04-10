@@ -49,7 +49,7 @@ billz/vc4a-service-theme.git)
   ;;
 billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  COMPOSER_COMMANDS="sudo hhvm composer.phar update"
+  COMPOSER_COMMANDS="sudo hhvm composer.phar update -n"
   ;;
 billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
