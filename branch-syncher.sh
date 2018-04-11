@@ -43,14 +43,14 @@ case $CURRENT_BRANCH in
 production)
   ( git checkout -f master && git pull origin master && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin master ) || ( echo "auto merge failed." && exit 1 )
   ( git checkout -f staging && git pull origin staging && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
-  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development )
+  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
   ;;
 master)
   ( git checkout -f staging && git pull origin staging && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
-  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development )
+  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
   ;;
 staging)
-  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development )
+  ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
   ;;
 esac
 
