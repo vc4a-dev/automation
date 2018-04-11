@@ -13,11 +13,11 @@ sudo chmod -R 777 ../
 #skip if last commit already an auto merge commit
 git log -1 | grep 'auto merge with ' && echo "Last commit is already an auto-merge commit. Skipping..." && exit 0
 #check skip ci directive.
-git log -1 | grep '[skip ci]' && echo "Last commit has skip CI directive. Skipping..." && exit 0
-git log -1 | grep '[ci skip]' && echo "Last commit has skip CI directive. Skipping..." && exit 0
+git log -1 | grep '\[skip ci\]' && echo "Last commit has skip CI directive. Skipping..." && exit 0
+git log -1 | grep '\[ci skip\]' && echo "Last commit has skip CI directive. Skipping..." && exit 0
 #check skip merge directive
-git log -1 | grep '[skip merge]' && echo "Last commit has skip merge directive. Skipping..." && exit 0
-git log -1 | grep '[merge skip]' && echo "Last commit has skip merge directive. Skipping..." && exit 0
+git log -1 | grep '\[skip merge\]' && echo "Last commit has skip merge directive. Skipping..." && exit 0
+git log -1 | grep '\[merge skip\]' && echo "Last commit has skip merge directive. Skipping..." && exit 0
 
 CURRENT_BRANCH=$1
 LAST_COMMIT=$(git rev-list -1 HEAD)
