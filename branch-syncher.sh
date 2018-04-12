@@ -78,3 +78,4 @@ fi
 git checkout -f .
 git checkout -f $CURRENT_BRANCH
 echo "Branch synching is failed.";
+exit 1;
