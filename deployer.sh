@@ -69,6 +69,10 @@ then
         exit $exitcode;
     fi
 
+    echo "Reset hard -> sudo git reset --hard origin/$CURRENT_BRANCH"
+    sudo git reset --hard origin/$CURRENT_BRANCH
+    echo "Pull from origin -> sudo git pull origin $CURRENT_BRANCH "
+    sudo git pull origin $CURRENT_BRANCH
     echo "Checkout to branch"
     echo "sudo git checkout -f ."
     sudo git checkout -f . || sudo git checkout -f . || exit 1
