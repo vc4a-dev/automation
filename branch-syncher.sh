@@ -41,17 +41,38 @@ git pull origin $CURRENT_BRANCH
 echo "Automatically merging commit $LAST_COMMIT from $CURRENT_BRANCH rippling to sub-branches"
 case $CURRENT_BRANCH in
 production)
+  echo "Auto-merging with master."
   ( git checkout -f master && git pull origin master && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin master ) || ( echo "auto merge failed." && exit 1 )
+  echo "Auto-merging with staging."
   ( git checkout -f staging && git pull origin staging && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
+  echo "Auto-merging with development."
   ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
+  exitcode=$?
+  echo "Sub-merges are done!."
   ;;
 master)
+  echo "Auto-merging with staging."
   ( git checkout -f staging && git pull origin staging && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH && git push origin staging ) || ( echo "auto merge failed." && exit 1 )
+  echo "Auto-merging with development."
   ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
+  exitcode=$?
+  echo "Sub-merges are done!."
   ;;
 staging)
+  echo "Auto-merging with development."
   ( git checkout -f development && git pull origin development && git merge --no-ff -m "auto merge with $CURRENT_BRANCH" $CURRENT_BRANCH  && git push origin development ) || ( echo "auto merge failed." && exit 0 )
+  exitcode=$?
+  echo "Sub-merges are done!."
   ;;
 esac
 
-git checkout $CURRENT_BRANCH || ( echo "auto merge failed." && exit 1 )
+
+if [ $exitcode == 0 ];
+    then
+    echo "Branch synching is done."
+    git checkout $CURRENT_BRANCH || ( echo "checkout to $CURRENT_BRANCH branch failed." && exit 1 )
+    exit $exitcode;
+fi
+
+git checkout $CURRENT_BRANCH
+echo "Branch synching is failed.";
