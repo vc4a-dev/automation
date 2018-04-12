@@ -70,9 +70,11 @@ esac
 if [ $exitcode == 0 ];
     then
     echo "Branch synching is done."
-    git checkout $CURRENT_BRANCH || ( echo "checkout to $CURRENT_BRANCH branch failed." && exit 1 )
-    exit $exitcode;
+    git checkout -f .
+    git checkout -f $CURRENT_BRANCH || ( echo "checkout to $CURRENT_BRANCH branch failed." && exit 1 )
+    exit 0;
 fi
 
-git checkout $CURRENT_BRANCH
+git checkout -f .
+git checkout -f $CURRENT_BRANCH
 echo "Branch synching is failed.";
