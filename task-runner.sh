@@ -56,6 +56,10 @@ esac
 echo "Executing task runner commands"
 if [ -n "$NPM_COMMANDS" ];
 then
+echo "node --version"
+node --version
+echo "npm --vesrion"
+npm --version
 echo $NPM_COMMANDS;
 $NPM_COMMANDS || $NPM_COMMANDS || exit 1
 exitcode=$?
