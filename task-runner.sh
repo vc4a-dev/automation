@@ -58,7 +58,7 @@ if [ -n "$NPM_COMMANDS" ];
 then
 echo "node --version"
 node --version
-echo "npm --vesrion"
+echo "npm --version"
 npm --version
 echo $NPM_COMMANDS;
 $NPM_COMMANDS || $NPM_COMMANDS || exit 1
