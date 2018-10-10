@@ -31,10 +31,11 @@ billz/theme-academy.git)
   sudo rm -rf node_modules
   git clone -b $CURRENT_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
+
   NPM_COMMANDS="sudo npm install"
   GULP_COMMANDS="sudo gulp build"
   ;;
