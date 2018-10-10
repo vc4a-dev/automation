@@ -6,8 +6,7 @@ echo "Who am I ?"
 whoami
 echo "Where am I ?"
 pwd
-# disable cleaner
-exit 1;
+
 DEFAULT_JENKINS_DIR="/var/lib/jenkins"
 DEFAULT_JENKINS_DIR_COUNT=${#DEFAULT_JENKINS_DIR}
 WORKSPACE_DIR=$(pwd)
