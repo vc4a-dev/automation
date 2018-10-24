@@ -59,6 +59,12 @@ esac
 echo "Executing task runner commands"
 if [ -n "$NPM_COMMANDS" ];
 then
+echo "source ~/.bashrc"
+source ~/.bashrc
+echo "which node"
+which node
+echo "which npm"
+which npm
 echo "node --version"
 node --version
 echo "npm --version"
