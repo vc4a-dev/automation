@@ -12,8 +12,16 @@ CURRENT_BRANCH=$2
 
 if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
-echo "For pull reqeusts we will use default current branch master";
-CURRENT_BRANCH="master"
+
+ if [ "$3" -eq  "0" ]
+   then
+     echo "Target branch argument is not supplied. Target branch set as master.";
+     TARGET_BRANCH="master";
+ else
+     echo "Target branch: $3";
+     TARGET_BRANCH=$3
+ fi
+
 fi
 
 GULP_COMMANDS=""
@@ -29,7 +37,7 @@ billz/vc4a-theme.git)
 billz/theme-academy.git)
   sudo rm -rf vc4africa
   sudo rm -rf node_modules
-  git clone -b $CURRENT_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
+  git clone -b $TARGET_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
