@@ -17,9 +17,18 @@ then
    then
      echo "Target branch argument is not supplied. Target branch set as master.";
      TARGET_BRANCH="master";
+     TEST_BRANCH=TARGET_BRANCH;
  else
      echo "Target branch: $3";
      TARGET_BRANCH=$3
+     if [ $TARGET_BRANCH == "master" ]
+     then
+     TEST_BRANCH="staging"
+     fi
+     if [ $TARGET_BRANCH == "production" ]
+     then
+     TEST_BRANCH="master"
+     fi
  fi
 
 fi
@@ -37,7 +46,7 @@ billz/vc4a-theme.git)
 billz/theme-academy.git)
   sudo rm -rf vc4africa
   sudo rm -rf node_modules
-  git clone -b $TARGET_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
