@@ -9,6 +9,7 @@ REPOSITORY_URL=$1
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
+TEST_BRANCH=$CURRENT_BRANCH
 
 if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
@@ -16,11 +17,10 @@ then
  if [ "$3" -eq  "0" ]
    then
      echo "Target branch argument is not supplied. Target branch set as master.";
-     TARGET_BRANCH="master";
-     TEST_BRANCH=TARGET_BRANCH;
+     TEST_BRANCH="master";
  else
      echo "Target branch: $3";
-     TARGET_BRANCH=$3
+     TEST_BRANCH=$3
      if [ $TARGET_BRANCH == "master" ]
      then
      TEST_BRANCH="staging"
