@@ -40,8 +40,8 @@ COMPOSER_COMMANDS=""
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   sudo rm -rf node_modules
-  NPM_COMMANDS="sudo npm install"
-  GULP_COMMANDS="sudo gulp build"
+  NPM_COMMANDS="npm install"
+  GULP_COMMANDS="gulp build"
   ;;
 billz/theme-academy.git)
   sudo rm -rf vc4africa
@@ -53,8 +53,8 @@ billz/theme-academy.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  NPM_COMMANDS="sudo npm install"
-  GULP_COMMANDS="sudo gulp build"
+  NPM_COMMANDS="npm install"
+  GULP_COMMANDS="gulp build"
   ;;
 billz/vc4a-service-theme.git)
   echo "no commands available for vc4a-service-theme"
@@ -62,7 +62,7 @@ billz/vc4a-service-theme.git)
 billz/mu-plugins.git)
   rm -f composer.phar
   sudo wget https://getcomposer.org/download/1.6.3/composer.phar
-  COMPOSER_COMMANDS="sudo composer install"
+  COMPOSER_COMMANDS="composer install"
   sed -i -e 's/\.\.\///g' composer.json
   sudo rm -rf plugins
   sudo rm -rf themes
