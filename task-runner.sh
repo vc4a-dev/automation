@@ -86,6 +86,10 @@ echo "node --version"
 node --version
 echo "npm --version"
 npm --version
+echo "sudo node --version"
+sudo node --version
+echo "sudo npm --version"
+sudo npm --version
 echo $NPM_COMMANDS;
 $NPM_COMMANDS || $NPM_COMMANDS || exit 1
 exitcode=$?
