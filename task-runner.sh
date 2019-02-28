@@ -14,7 +14,7 @@ TEST_BRANCH=$CURRENT_BRANCH
 if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
 
- if [ "$3" -eq  "0" ]
+ if [ -z "$3" ]
    then
      echo "Target branch argument is not supplied. Target branch set as master.";
      TEST_BRANCH="master";
