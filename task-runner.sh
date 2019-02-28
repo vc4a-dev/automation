@@ -40,7 +40,7 @@ COMPOSER_COMMANDS=""
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   sudo rm -rf node_modules
-  NPM_COMMANDS="npm install"
+  NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
   ;;
 billz/theme-academy.git)
@@ -53,7 +53,7 @@ billz/theme-academy.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  NPM_COMMANDS="npm install"
+  NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
   ;;
 billz/vc4a-service-theme.git)
@@ -82,14 +82,21 @@ echo "which node"
 which node
 echo "which npm"
 which npm
+# Install yarn if it's not available.
+yarn --version || ( echo 'Yarn does not exists installing yarn...' && npm install -g yarn )
+echo "which yarn"
+which yarn
 echo "node --version"
 node --version
 echo "npm --version"
 npm --version
+echo "yarn --version"
+yarn --version
 echo "sudo node --version"
 sudo node --version
 echo "sudo npm --version"
 sudo npm --version
+
 echo $NPM_COMMANDS;
 $NPM_COMMANDS || $NPM_COMMANDS || exit 1
 exitcode=$?
