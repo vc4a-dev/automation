@@ -19,6 +19,12 @@
     <rule ref="PSR2.Classes.PropertyDeclaration"/>
     <!-- Method names MUST NOT be prefixed with a single underscore to indicate protected or private visibility. That is, an underscore prefix explicitly has no meaning. -->
     <rule ref="PSR2.Methods.MethodDeclaration"/>
+    <!-- Ternary operator must be multi-line if exceeds limit -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+        <properties>
+            <property name="lineLengthLimit" value="100" />
+        </properties>
+    </rule>
     <!-- Strict type return for methods -->
     <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
