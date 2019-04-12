@@ -17,12 +17,11 @@
 
     <!-- Covers rule: Put spaces on both sides of the opening and closing parenthesis of
      if, elseif, foreach, for, and switch blocks. -->
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+    <!-- Replaced WordPress.WhiteSpace.ControlStructureSpacing rule with equivelent PSR2 rule for compatibility -->
+    <rule ref="PSR2.ControlStructures.ControlStructureSpacing">
         <properties>
-            <property name="equalsSpacing" value="1"/>
-            <property name="requiredSpacesAfterOpen" value="1"/>
-            <property name="requiredSpacesBeforeClose" value="1"/>
+            <property name="requiredSpacesAfterOpen" value="1" />
+            <property name="requiredSpacesBeforeClose" value="1" />
         </properties>
     </rule>
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose">
