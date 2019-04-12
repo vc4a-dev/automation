@@ -7,6 +7,14 @@
     <!-- Expected 0 blank lines after opening function brace. -->
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
 
+    <!-- Opening brace should be on a new line -->
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
+        <properties>
+            <property name="checkFunctions" value="true" />
+            <property name="checkClosures" value="true" />
+        </properties>
+    </rule>
+
     <!-- Covers rule: Put spaces on both sides of the opening and closing parenthesis of
      if, elseif, foreach, for, and switch blocks. -->
     <rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
