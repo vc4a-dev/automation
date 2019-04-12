@@ -7,19 +7,31 @@
     <!-- Expected 0 blank lines after opening function brace. -->
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
 
-    <!-- Covers rule: Put spaces on both sides of the opening and closing parenthesis of
-     if, elseif, foreach, for, and switch blocks. -->
-    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+    <!-- Opening brace should be on a new line -->
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman">
         <properties>
-            <property name="equalsSpacing" value="1"/>
-            <property name="requiredSpacesAfterOpen" value="1"/>
-            <property name="requiredSpacesBeforeClose" value="1"/>
+            <property name="checkFunctions" value="true" />
+            <property name="checkClosures" value="true" />
         </properties>
     </rule>
-    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose">
-        <severity>0</severity>
+
+    <!-- Covers rule: Put spaces on both sides of the opening and closing parenthesis of
+     if, elseif, foreach, for, and switch blocks. -->
+    <!-- Replaced WordPress.WhiteSpace.ControlStructureSpacing rule with equivelent PSR2 rule for compatibility -->
+    <rule ref="PSR2.ControlStructures.ControlStructureSpacing">
+        <properties>
+            <property name="requiredSpacesAfterOpen" value="1" />
+            <property name="requiredSpacesBeforeClose" value="1" />
+        </properties>
     </rule>
+      <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+          <properties>
+              <property name="equalsSpacing" value="1"/>
+              <property name="requiredSpacesAfterOpen" value="1"/>
+              <property name="requiredSpacesBeforeClose" value="1"/>
+          </properties>
+      </rule>
+
 
     <!-- Covers rule: Call a function, like so: my_function( $param1, func_param( $param2 ) ); -->
     <rule ref="PEAR.Functions.FunctionCallSignature">
@@ -84,6 +96,11 @@
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversablePropertyTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing">
+        <properties>
+            <property name="spacesCountBeforeColon" value="1" />
+        </properties>
     </rule>
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
         <type>error</type>
