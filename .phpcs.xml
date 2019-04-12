@@ -85,6 +85,11 @@
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversablePropertyTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
     </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing">
+        <properties>
+            <property name="spacesCountBeforeColon" value="1" />
+        </properties>
+    </rule>
     <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
         <type>error</type>
         <message>Method name "%s" must not be prefixed with an underscore to indicate visibility</message>
