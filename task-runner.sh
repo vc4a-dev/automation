@@ -1,6 +1,9 @@
 #!/bin/sh
 # Make deployments.
 
+# Let the world know what script we are executing.
+echo "Start execution VC4Africa/automation/task-runner.sh..."
+
 # always good to know where are we and who are we!
 whoami
 pwd
@@ -62,7 +65,7 @@ billz/vc4a-service-theme.git)
 billz/mu-plugins.git)
   rm -f composer.phar
   sudo wget https://getcomposer.org/download/1.6.3/composer.phar
-  COMPOSER_COMMANDS="composer install"
+  COMPOSER_COMMANDS="composer install --no-dev"
   sed -i -e 's/\.\.\///g' composer.json
   sudo rm -rf plugins
   sudo rm -rf themes
