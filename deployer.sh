@@ -44,6 +44,11 @@ billz/theme-academy.git)
   NPM_COMMANDS="sudo npm install"
   GULP_COMMANDS="sudo gulp build"
   ;;
+billz/theme-community.git)
+  SUB_PATH=${MAIN_PATH}"/wp-content/themes/community"
+  NPM_COMMANDS="sudo npm install"
+  GULP_COMMANDS="sudo gulp build"
+  ;;
 billz/vc4a-service-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
   ;;
@@ -123,7 +128,7 @@ then
     if [ -n "$COMPOSER_COMMANDS" ];
     then
     sudo rm -f composer.phar
-    sudo wget https://getcomposer.org/download/1.6.3/composer.phar
+    sudo wget https://getcomposer.org/download/1.9.1/composer.phar
     echo $COMPOSER_COMMANDS;
     $COMPOSER_COMMANDS || $COMPOSER_COMMANDS || exit 1
     exitcode=$?
