@@ -36,17 +36,17 @@ COMPOSER_COMMANDS=""
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/vc4africa"
-  NPM_COMMANDS="sudo npm install"
+  NPM_COMMANDS="sudo yarn install"
   GULP_COMMANDS="sudo gulp build"
   ;;
 billz/theme-academy.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/academy"
-  NPM_COMMANDS="sudo npm install"
+  NPM_COMMANDS="sudo yarn install"
   GULP_COMMANDS="sudo gulp build"
   ;;
 billz/theme-community.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/community"
-  NPM_COMMANDS="sudo npm install"
+  NPM_COMMANDS="sudo yarn install"
   GULP_COMMANDS="sudo gulp build"
   ;;
 billz/vc4a-service-theme.git)
