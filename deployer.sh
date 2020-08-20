@@ -54,7 +54,7 @@ billz/vc4a-service-theme.git)
   ;;
 billz/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  COMPOSER_COMMANDS="sudo hhvm composer.phar update -n"
+  COMPOSER_COMMANDS="sudo php composer.phar install --no-dev -n"
   ;;
 billz/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
@@ -140,7 +140,7 @@ then
     fi
 
     echo 'Set folder ownerships'
-    sudo chown -R www-data:deploy $MAIN_PATH || exit 1
+    sudo chown -R www-data:www-data $MAIN_PATH || exit 1
     if [ $exitcode != 0 ];
         then
         echo "Set folder ownerships failed"
