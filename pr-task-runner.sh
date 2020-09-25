@@ -14,7 +14,7 @@ REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
 TEST_BRANCH=$CURRENT_BRANCH
 
-if [ $CURRENT_BRANCH != "development" ] && [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
+if [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
 
  if [ -z "$3" ]

@@ -22,9 +22,6 @@ master)
 staging)
   URL="staging-vc4a.com"
   ;;
-development)
-  URL="dev.staging-vc4a.com"
-  ;;
 esac
 
 MAIN_PATH="/var/www/html/"${URL}
