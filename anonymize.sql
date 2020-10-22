@@ -66,13 +66,13 @@ where field_id = 639;
 
 /*Comments table*/
 update wp_comments
-set comment_author = concat_ws( '-', 'user-author', user_id ),
-    comment_author_email = concat_ws( '-', user_id, 'user_email@vc4a.com' ),
+set comment_author = concat_ws( '-', 'author', user_id ),
+    comment_author_email = concat_ws( '@', user_id, 'vc4a.com' ),
     comment_author_url = concat_ws('-', 'https://vc4a.com/members/user', user_id )
 where 1 = 1;
 
 /*Signups table*/
 update wp_signups
-set user_login = concat_ws( '-', 'user', signup_id ),
-    user_email = concat_ws( '-', signup_id, 'user_email@vc4a.com' ),
+set user_login = concat_ws( '-', 'login', signup_id ),
+    user_email = concat_ws( '@', ID, 'vc4a.com' ),
     meta = '' where 1 = 1;
