@@ -74,6 +74,12 @@ billz/theme-community.git)
   NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
   ;;
+billz/vc4a-dashboard.git)
+  sudo rm -rf node_modules
+
+  NPM_COMMANDS="npm install"
+  GULP_COMMANDS="npm run build"
+  ;;
 billz/vc4a-service-theme.git)
   echo "no commands available for vc4a-service-theme"
   ;;
