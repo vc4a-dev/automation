@@ -33,6 +33,7 @@ echo "Fetching all"
 git fetch --all
 git pull origin $CURRENT_BRANCH
 echo "Automatically merging commit $LAST_COMMIT from $CURRENT_BRANCH rippling to sub-branches"
+exitcode=0
 case $CURRENT_BRANCH in
 production)
   echo "Auto-merging with master."
