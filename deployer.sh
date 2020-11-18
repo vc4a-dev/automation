@@ -46,6 +46,11 @@ billz/theme-community.git)
   NPM_COMMANDS="sudo yarn install"
   GULP_COMMANDS="sudo gulp build"
   ;;
+billz/vc4a-dashboard.git)
+  SUB_PATH=${MAIN_PATH}"/wp-content/themes/dashboard"
+  NPM_COMMANDS="npm install"
+  GULP_COMMANDS="npm run build"
+  ;;
 billz/vc4a-service-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
   ;;
