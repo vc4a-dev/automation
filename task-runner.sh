@@ -47,10 +47,15 @@ billz/vc4a-theme.git)
   GULP_COMMANDS="gulp build"
   ;;
 billz/theme-academy.git)
-  sudo rm -rf vc4africa
   sudo rm -rf node_modules
+  
   # As a child theme, the parent theme needs to be available to prevent errors.
+  sudo rm -rf vc4africa
   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
+  
+  # As a styles dependency, the styles theme needs to be available to prevent errors.
+  sudo rm -rf styles
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
@@ -61,10 +66,16 @@ billz/theme-academy.git)
   GULP_COMMANDS="gulp build"
   ;;
 billz/theme-community.git)
-  sudo rm -rf vc4africa
   sudo rm -rf node_modules
+  
   # As a child theme, the parent theme needs to be available to prevent errors.
+  sudo rm -rf vc4africa
   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-theme.git vc4africa
+  
+  # As a styles dependency, the styles theme needs to be available to prevent errors.
+  sudo rm -rf styles
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
+  
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
@@ -76,9 +87,20 @@ billz/theme-community.git)
   ;;
 billz/vc4a-dashboard.git)
   sudo rm -rf node_modules
+  
+  # As a styles dependency, the styles theme needs to be available to prevent errors.
+  sudo rm -rf styles
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
+  cd styles && yarn install && gulp build && cd ..
 
-  NPM_COMMANDS="npm install"
-  GULP_COMMANDS="npm run build"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="yarn run build"
+  ;;
+billz/vc4a-styles.git)
+  sudo rm -rf node_modules
+  
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="gulp build"
   ;;
 billz/vc4a-service-theme.git)
   echo "no commands available for vc4a-service-theme"
