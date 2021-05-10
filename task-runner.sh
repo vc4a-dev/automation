@@ -46,6 +46,7 @@ billz/vc4a-theme.git)
   sudo rm -rf node_modules
   
   if [ $TARGET_BRANCH != "production" ]
+  then
    # As a styles dependency, the styles theme needs to be available to prevent errors.
    sudo rm -rf styles
    git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
