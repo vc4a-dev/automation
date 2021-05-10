@@ -49,15 +49,20 @@ billz/vc4a-theme.git)
   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
 
   # Correct paths from ../../../{../../}styles to being a subfolder in current path
-  #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-
+  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  
   # As a community-styles dependency, the styles theme needs to be available to prevent errors.
   sudo rm -rf community
   git clone -b $TEST_BRANCH git@github.com:billz/theme-community.git community
+
+  # Correct paths for community theme less files.
+  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\/vc4africa/g' $i; done
+  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\/vc4africa/g' $i; done
+  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\/vc4africa/g' $i; done
+  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/..\/vc4africa/g' $i; done
 
   # Correct paths from ../../../community to being a subfolder in current path
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
