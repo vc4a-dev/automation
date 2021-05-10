@@ -45,8 +45,8 @@ case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   sudo rm -rf node_modules
   
-  if [ $TARGET_BRANCH != "production" ]
-  then
+  #if [ $TARGET_BRANCH != "production" ]
+  #then
    # As a styles dependency, the styles theme needs to be available to prevent errors.
    sudo rm -rf styles
    git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
@@ -70,7 +70,8 @@ billz/vc4a-theme.git)
    # Correct paths from ../../../community to being a subfolder in current path
    #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
    for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/community/community/g' $i; done
-  fi
+   
+  #fi
   
   NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
