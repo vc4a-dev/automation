@@ -57,7 +57,7 @@ billz/vc4a-theme.git)
 
   # As a community-styles dependency, the styles theme needs to be available to prevent errors.
   sudo rm -rf community
-  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-community.git community
+  git clone -b $TEST_BRANCH git@github.com:billz/theme-community.git community
 
   # Correct paths from ../../../community to being a subfolder in current path
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
