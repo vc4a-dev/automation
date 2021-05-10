@@ -3,12 +3,13 @@
 
 # Let the world know what script we are executing.
 echo "Start execution VC4Africa/automation/task-runner.sh..."
+echo "Current path = $PWD"
 
 # always good to know where are we and who are we!
 whoami
-pwd
 
 REPOSITORY_URL=$1
+
 # stripping https://github.com/
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
@@ -44,30 +45,32 @@ case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   sudo rm -rf node_modules
   
-  # As a styles dependency, the styles theme needs to be available to prevent errors.
-  sudo rm -rf styles
-  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
+  if [ $TARGET_BRANCH != "production" ]
+   # As a styles dependency, the styles theme needs to be available to prevent errors.
+   sudo rm -rf styles
+   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
 
-  # Correct paths from ../../../{../../}styles to being a subfolder in current path
-  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
-  for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+   # Correct paths from ../../../{../../}styles to being a subfolder in current path
+   for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+   for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+   for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+   for i in $(find styles/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+
+   # As a community-styles dependency, the styles theme needs to be available to prevent errors.
+   sudo rm -rf community
+   git clone -b $TEST_BRANCH git@github.com:billz/theme-community.git community
+
+   # Correct paths for community theme less files.
+   for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/$PWD/g' $i; done
+   for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/$PWD/g' $i; done
+   for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/$PWD/g' $i; done
+   for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/$PWD/g' $i; done
+
+   # Correct paths from ../../../community to being a subfolder in current path
+   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
+   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/community/community/g' $i; done
+  fi
   
-  # As a community-styles dependency, the styles theme needs to be available to prevent errors.
-  sudo rm -rf community
-  git clone -b $TEST_BRANCH git@github.com:billz/theme-community.git community
-
-  # Correct paths for community theme less files.
-  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\//g' $i; done
-  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\//g' $i; done
-  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/..\//g' $i; done
-  for i in $(find community/. -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/..\//g' $i; done
-
-  # Correct paths from ../../../community to being a subfolder in current path
-  #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
-  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/community/community/g' $i; done
-
   NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
   ;;
