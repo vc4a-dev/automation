@@ -43,6 +43,26 @@ COMPOSER_COMMANDS=""
 case $REPOSITORY_NAME in
 billz/vc4a-theme.git)
   sudo rm -rf node_modules
+  
+  # As a styles dependency, the styles theme needs to be available to prevent errors.
+  sudo rm -rf styles
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
+
+  # Correct paths from ../../../{../../}styles to being a subfolder in current path
+  #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/styles/styles/g' $i; done
+
+  # As a community-styles dependency, the styles theme needs to be available to prevent errors.
+  sudo rm -rf community
+  git clone -b $TEST_BRANCH git@github.com:billz/vc4a-community.git community
+
+  # Correct paths from ../../../community to being a subfolder in current path
+  #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
+  for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/community/community/g' $i; done
+
   NPM_COMMANDS="yarn install"
   GULP_COMMANDS="gulp build"
   ;;
@@ -56,6 +76,8 @@ billz/theme-academy.git)
   # As a styles dependency, the styles theme needs to be available to prevent errors.
   sudo rm -rf styles
   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
+  
+  # Correct paths from ../../../vc4africa to being a subfolder in current path
   #sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' resources/less/style.less
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
