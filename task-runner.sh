@@ -14,7 +14,7 @@ REPOSITORY_URL=$1
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
 TEST_BRANCH=$CURRENT_BRANCH
-
+GULP_COMMANDS=""
 if [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
 
@@ -73,9 +73,7 @@ billz/vc4a-theme.git)
    for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/community/community/g' $i; done
    
   #fi
-  
-  #NPM_COMMANDS="yarn install"
-  #GULP_COMMANDS="gulp build"
+
   ;;
 billz/theme-academy.git)
   sudo rm -rf node_modules
@@ -95,8 +93,6 @@ billz/theme-academy.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  #NPM_COMMANDS="yarn install"
-  #GULP_COMMANDS="gulp build"
   ;;
 billz/theme-community.git)
   sudo rm -rf node_modules
@@ -115,8 +111,6 @@ billz/theme-community.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  #NPM_COMMANDS="yarn install"
-  #GULP_COMMANDS="gulp build"
   ;;
 billz/vc4a-dashboard.git)
   sudo rm -rf node_modules
@@ -126,14 +120,10 @@ billz/vc4a-dashboard.git)
   git clone -b $TEST_BRANCH git@github.com:billz/vc4a-styles.git styles
   cd styles && yarn install && gulp build && cd ..
 
-  #NPM_COMMANDS="yarn install"
-  #GULP_COMMANDS="yarn run build"
   ;;
 billz/vc4a-styles.git)
   sudo rm -rf node_modules
-  
-  #NPM_COMMANDS="yarn install"
-  #GULP_COMMANDS="gulp build"
+
   ;;
 billz/vc4a-service-theme.git)
   echo "no commands available for vc4a-service-theme"
