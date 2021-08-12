@@ -28,7 +28,7 @@ then
      if [ $TARGET_BRANCH == "master" ]
      then
      TEST_BRANCH="staging"
-     GULP_COMMANDS="gulp build_development"
+     GULP_COMMANDS="gulp build_dev"
      fi
      if [ $TARGET_BRANCH == "production" ]
      then
