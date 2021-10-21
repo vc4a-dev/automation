@@ -38,7 +38,6 @@ changedjs=$(git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_CO
 # only run esvalidate where there are changes
 if [[ -n $changedjs ]]; then
   echo "Checking syntax changed js files:"
-  $changedjs
   $changedjs | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
 else
   echo "No JS changes found, skipping syntax checks."
