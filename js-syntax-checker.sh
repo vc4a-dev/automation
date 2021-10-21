@@ -33,10 +33,13 @@ git fetch --all
 echo "All changed files"
 git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
-# show different php files only
+# show different js files only
 echo "Changed js files"
-git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$
+changedjs=$(git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js)
 
-git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
+# only run esvalidate where there are changes
+if [[ -n $changedjs ]]; then
+   $changedjs | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
+fi
 
 echo "no js syntax errors detected" && exit 0
