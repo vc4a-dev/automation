@@ -10,8 +10,7 @@ pwd
 GIT_PREVIOUS_COMMIT=$1
 GIT_COMMIT=$2
 REPOSITORY_URL=$3
-if [ $GIT_PREVIOUS_COMMIT = $GIT_COMMIT ] || [ $GIT_PREVIOUS_COMMIT = "" ]
-then
+if [ $GIT_PREVIOUS_COMMIT = $GIT_COMMIT ] || [ $GIT_PREVIOUS_COMMIT = "" ] then
   # let's assume going back to 30 commits would be enough for covering even an exceptional huge PR case.
   GIT_PREVIOUS_COMMIT=$(git rev-list -30 --skip=29 --max-count=1 HEAD)
 fi
@@ -34,12 +33,15 @@ echo "All changed files"
 git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT
 
 # show different js files only
-echo "Changed js files"
 changedjs=$(git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js)
 
 # only run esvalidate where there are changes
 if [[ -n $changedjs ]]; then
-   $changedjs | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
+  echo "Checking syntax changed js files:"
+  $changedjs
+  $changedjs | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
+else
+  echo "No JS changes found, skipping syntax checks."
 fi
 
 echo "no js syntax errors detected" && exit 0
