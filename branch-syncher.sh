@@ -1,6 +1,6 @@
 #!/bin/sh
 # Automatically merge the last commit through the following branches:
-# production -> master -> staging -> development
+# production -> master -> staging
 
 # always good to know where are we and who are we!
 whoami
