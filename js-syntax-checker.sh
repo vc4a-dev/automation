@@ -41,7 +41,7 @@ if [[ -n $changedjs ]]; then
   echo "Using eslint -v"
   eslint -v || sudo npm install -g eslint
   
-  git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js | xargs -n1 echo eslint --no-eslintrc --env es6 | bash 
+  git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js | xargs -n1 echo eslint --no-eslintrc --env es6 --parser-options=ecmaVersion:8 | bash 
 else
   echo "No JS modifications found, skipping syntax checks."
 fi
