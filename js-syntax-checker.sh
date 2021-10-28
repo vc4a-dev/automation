@@ -37,10 +37,13 @@ changedjs=$(git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_CO
 
 # only run esvalidate where there are changes
 if [[ -n $changedjs ]]; then
-  echo "Checking syntax changed js files:"
-  git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js | xargs -n1 echo esvalidate | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
+  echo "Checking syntax of modified js files.."
+  echo "Using eslint -v"
+  eslint -v || sudo npm install -g eslint
+  
+  git diff --diff-filter=ACMR --name-only $GIT_PREVIOUS_COMMIT $GIT_COMMIT | grep .js$ | grep -v wpml-translation-management/ | grep -v node_modules/ | grep -v vendor/ | grep -v gulpfile.babel.js | xargs -n1 echo eslint --no-eslintrc --env es6 | bash | grep -v "No syntax errors detected" && echo "JavaScript Syntax error(s) detected" && exit 1
 else
-  echo "No JS changes found, skipping syntax checks."
+  echo "No JS modifications found, skipping syntax checks."
 fi
 
 echo "no js syntax errors detected" && exit 0
