@@ -33,33 +33,38 @@ COMPOSER_COMMANDS=""
 case $REPOSITORY_NAME in
 vc4a-dev/vc4a-theme.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/vc4africa"
-  NPM_COMMANDS="sudo yarn install"
-  GULP_COMMANDS="sudo gulp build"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-academy.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/academy"
-  NPM_COMMANDS="sudo yarn install"
-  GULP_COMMANDS="sudo gulp build"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-community.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/community"
-  NPM_COMMANDS="sudo yarn install"
-  GULP_COMMANDS="sudo gulp build"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="build"
   ;;
 vc4a-dev/vc4a-dashboard.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/dashboard"
-  NPM_COMMANDS="npm install"
-  GULP_COMMANDS="npm run build"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="yarn run build"
   ;;
 vc4a-dev/vc4a-consulting.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/themes/consulting"
   ;;
 vc4a-dev/mu-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/mu-plugins"
-  COMPOSER_COMMANDS="sudo php composer.phar install --no-dev -n"
+  COMPOSER_COMMANDS="php composer.phar install --no-dev -n"
   ;;
 vc4a-dev/vc4a-plugins.git)
   SUB_PATH=${MAIN_PATH}"/wp-content/plugins"
+  ;;
+vc4a-dev/vc4a-mentors.git)
+  SUB_PATH=${MAIN_PATH}"/wp-content/themes/mentors"
+  NPM_COMMANDS="yarn install"
+  GULP_COMMANDS="gulp"
   ;;
 esac
 
@@ -76,15 +81,16 @@ then
         exit $exitcode;
     fi
 
-    echo "Reset hard -> sudo git reset --hard origin/$CURRENT_BRANCH"
-    sudo git reset --hard origin/$CURRENT_BRANCH
-    echo "Pull from origin -> sudo git pull origin $CURRENT_BRANCH "
-    sudo git pull origin $CURRENT_BRANCH
+    echo "Reset ownership and git reset --hard origin/$CURRENT_BRANCH"
+    sudo chown -R deploy:www-data .
+    git reset --hard origin/$CURRENT_BRANCH
+    echo "Pull from origin -> git pull origin $CURRENT_BRANCH "
+    git pull origin $CURRENT_BRANCH
     echo "Checkout to branch"
-    echo "sudo git checkout -f ."
-    sudo git checkout -f . || sudo git checkout -f . || exit 1
-    echo "sudo git checkout -f $CURRENT_BRANCH"
-    sudo git checkout -f $CURRENT_BRANCH || sudo git checkout -f $CURRENT_BRANCH || exit 1
+    echo "git checkout -f ."
+    git checkout -f . || sudo git checkout -f . || exit 1
+    echo "git checkout -f $CURRENT_BRANCH"
+    git checkout -f $CURRENT_BRANCH || sudo git checkout -f $CURRENT_BRANCH || exit 1
     exitcode=$?
     if [ $exitcode != 0 ];
         then
@@ -93,8 +99,8 @@ then
     fi
 
     echo "Update the branch"
-    echo "sudo git pull"
-    sudo git pull || sudo git pull || exit 1
+    echo "git pull"
+    git pull || sudo chown -R deploy:www-data . && git pull || exit 1
     exitcode=$?
     if [ $exitcode != 0 ];
         then
@@ -141,8 +147,8 @@ then
         fi
     fi
 
-    echo 'Set folder ownerships'
-    sudo chown -R www-data:www-data $MAIN_PATH || exit 1
+    echo 'Set folder ownerships back to deploy:www-data'
+    sudo chown -R deploy:www-data $MAIN_PATH || exit 1
     if [ $exitcode != 0 ];
         then
         echo "Set folder ownerships failed"

@@ -14,7 +14,7 @@ REPOSITORY_URL=$1
 REPOSITORY_NAME=${REPOSITORY_URL:19}
 CURRENT_BRANCH=$2
 TEST_BRANCH=$CURRENT_BRANCH
-
+GULP_COMMANDS=""
 if [ $CURRENT_BRANCH != "staging" ] && [ $CURRENT_BRANCH != "master" ] && [ $CURRENT_BRANCH != "production" ]
 then
 
@@ -28,19 +28,20 @@ then
      if [ $TARGET_BRANCH == "master" ]
      then
      TEST_BRANCH="staging"
+     GULP_COMMANDS="gulp build_dev"
      fi
      if [ $TARGET_BRANCH == "production" ]
      then
      TEST_BRANCH="master"
+     GULP_COMMANDS="gulp build"
      fi
  fi
 
 fi
 
-GULP_COMMANDS=""
-NPM_COMMANDS=""
-COMPOSER_COMMANDS=""
 
+COMPOSER_COMMANDS=""
+NPM_COMMANDS="yarn install"
 case $REPOSITORY_NAME in
 vc4a-dev/vc4a-theme.git)
   sudo rm -rf node_modules
@@ -73,8 +74,6 @@ vc4a-dev/vc4a-theme.git)
 
   #fi
 
-  NPM_COMMANDS="yarn install"
-  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-academy.git)
   sudo rm -rf node_modules
@@ -94,8 +93,6 @@ vc4a-dev/vc4a-academy.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  NPM_COMMANDS="yarn install"
-  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-community.git)
   sudo rm -rf node_modules
@@ -114,8 +111,6 @@ vc4a-dev/vc4a-community.git)
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
   for i in $(find . -iname "*.less"); do sed -i -e 's/\.\.\/\.\.\/\.\.\/vc4africa/vc4africa/g' $i; done
 
-  NPM_COMMANDS="yarn install"
-  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-dashboard.git)
   sudo rm -rf node_modules
@@ -125,14 +120,10 @@ vc4a-dev/vc4a-dashboard.git)
   git clone -b $TEST_BRANCH git@github.com:vc4a-dev/vc4a-styles.git styles
   cd styles && yarn install && gulp build && cd ..
 
-  NPM_COMMANDS="yarn install"
-  GULP_COMMANDS="yarn run build"
   ;;
 vc4a-dev/vc4a-styles.git)
   sudo rm -rf node_modules
 
-  NPM_COMMANDS="yarn install"
-  GULP_COMMANDS="gulp build"
   ;;
 vc4a-dev/vc4a-consulting.git)
   echo "no commands available for vc4a-service-theme"
