@@ -1,19 +1,32 @@
 #!/bin/bash
 
-echo 'Executing clone environment production build task runner (via git hooks)'
+echo 'Executing deployment/git hook task runner (via git hooks)'
 
 changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 c_branch="$(git rev-parse --abbrev-ref HEAD)"
 c_time="$(date)"
 c_repo="$(basename -s .git `git config --get remote.origin.url`)"
 
-[[ "$c_repo" == "mu-plugins" ]] && echo "Skipping production assets build." && exit 0;
 [[ "$c_repo" == "vc4a-plugins" ]] && echo "Skipping production assets build." && exit 0;
 [[ "$c_repo" == "vc4a-consulting" ]] && echo "Skipping production assets build." && exit 0;
 [[ -z "$changed_files" ]] && echo "No changed scss/less/js/vue files found. Skipping production assets build." && exit 0;
 
 echo "Execution started at $c_time on $c_branch at $(pwd) " >> hook_log
 
+# Support mu-plugins composer install and exit.
+if [ "$c_repo" == "mu-plugins" ]; then
+    task_runner_execution=$(echo $changed_files | grep -q 'composer.lock' && echo exists)
+    if [[ "$task_runner_execution" ]]; then
+        echo 'Running composer install...'
+        composer install --no-dev || ( echo composer install --no-dev execution is FAILED && exit 1 ) || exit 1
+        echo 'Composer install was successfully executed.'
+        echo 'Composer install was successfully executed.' >> hook_log
+    fi
+
+    exit 0
+fi
+
+# Do we need to create a production build?
 if [ "$c_branch" == "production" ]; then
     echo current_branch:: $c_branch
     echo Current repo:: $c_repo
@@ -45,7 +58,7 @@ if [ "$c_branch" == "production" ]; then
 
     if [ "$c_repo" == "vc4a-mentors" ] || [ "$c_repo" == "vc4a-dashboard" ] || [ "$c_repo" == "vc4a-theme" ]; then
         task_runner_execution=$(echo $changed_files | grep -q 'package.json\|yarn.lock\|vue.config.js\|src' && echo exists)
-        if [[ "$task_runner_execution" ]] ; then
+        if [[ "$task_runner_execution" ]]; then
             echo 'YARN build changes detected.'
             echo 'Cleaning up artefacts of possible previous yarn builds...'
             echo rm -R dist/
