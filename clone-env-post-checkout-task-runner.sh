@@ -7,10 +7,10 @@ c_branch="$(git rev-parse --abbrev-ref HEAD)"
 c_time="$(date)"
 c_repo="$(basename -s .git `git config --get remote.origin.url`)"
 
-[[ "$c_repo" == "mu-plugins" ]] && echo "Skipping production build." && exit 0;
-[[ "$c_repo" == "vc4a-plugins" ]] && echo "Skipping production build." && exit 0;
-[[ "$c_repo" == "vc4a-consulting" ]] && echo "Skipping production build." && exit 0;
-[[ -z "$changed_files" ]] && echo "No changed scss/less/js/vue files found. Skipping production build." && exit 0;
+[[ "$c_repo" == "mu-plugins" ]] && echo "Skipping production assets build." && exit 0;
+[[ "$c_repo" == "vc4a-plugins" ]] && echo "Skipping production assets build." && exit 0;
+[[ "$c_repo" == "vc4a-consulting" ]] && echo "Skipping production assets build." && exit 0;
+[[ -z "$changed_files" ]] && echo "No changed scss/less/js/vue files found. Skipping production assets build." && exit 0;
 
 echo "Execution started at $c_time on $c_branch at $(pwd) " >> hook_log
 
@@ -44,7 +44,7 @@ if [ "$c_branch" == "production" ]; then
     fi
 
     if [ "$c_repo" == "vc4a-mentors" ] || [ "$c_repo" == "vc4a-dashboard" ] || [ "$c_repo" == "vc4a-theme" ]; then
-        task_runner_execution=$(echo $changed_files | grep -q 'vue.config.js\|src' && echo exists)
+        task_runner_execution=$(echo $changed_files | grep -q 'package.json\|yarn.lock\|vue.config.js\|src' && echo exists)
         if [[ "$task_runner_execution" ]] ; then
             echo 'YARN build changes detected.'
             echo 'Cleaning up artefacts of possible previous yarn builds...'
