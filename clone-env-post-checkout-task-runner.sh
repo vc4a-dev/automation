@@ -52,11 +52,13 @@ rebuildCommitChildTheme() {
         echo "- Clean up artefacts of possible previous builds on $2..."
         rm -R resources/dist/
         rm -R resources/global/
+        rm -R dist/
 
         echo '- Running gulp...'
         gulp build || echo gulp build execution is FAILED
         git add resources/dist/
         git add resources/global/
+        git add dist/
         commit_results='yes'
         echo "- Gulp build execution on $2 is successful."
         echo "- Gulp build execution on $2 is successful." >> hook_log
@@ -112,7 +114,8 @@ rebuildCommitChildTheme() {
 if [ "$c_repo" == "vc4a-styles" ] && ([ "$c_branch" == "staging" ] || [ "$c_branch" == "production" ]); then
     task_runner_execution=$(echo $changed_files | grep -q 'scss' && echo exists)
     if [ "$task_runner_execution" ]; then
-        echo '- Building styles..'
+        rm -R dist/ && git checkout "$c_branch" -- dist/
+        echo '- Rebuilding styles..'
         gulp
         git add dist/
         echo "- Committing build results to GIT..."
