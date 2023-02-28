@@ -130,8 +130,8 @@ if [ "$c_repo" == "vc4a-styles" ] && ([ "$c_branch" == "staging" ] || [ "$c_bran
     fi
 fi
 
-# Do we need to create a production build?
-if [ "$c_branch" == "production" ] && [ "$c_repo" != "vc4a-styles" ]; then
+# Do we need to create a production or staging build?
+if ([ "$c_branch" == "production" ] || [ "$c_branch" == "staging" ]) && [ "$c_repo" != "vc4a-styles" ]; then
     echo 'Checking yarn version'
     yarn --version || ( echo '- Yarn command failed. Installing yarn...' && npm install -g yarn && yarn --version || echo "- Yarn installation is not successful. please check sources" && exit 1 ) || exit 1
 
