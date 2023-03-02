@@ -49,19 +49,22 @@ rebuildCommitChildTheme() {
 
     # Detect style/js updates - run gulp to build.
     if [ -e gulpfile.js ] || [ -e Gulpfile.js ]; then
-        echo "- Clean up artefacts of possible previous builds on $2..."
-        rm -R resources/dist/
-        rm -R resources/global/
-        rm -R dist/
+        task_runner_execution=$(echo $changed_files | grep -q 'Gulpfile.js\|resources/less\|resources/js\|resources/scss\|scss\|src' && echo exists)
+        if [ "$task_runner_execution" ]; then
+            echo "- Clean up GULP artefacts of possible previous builds on $2..."
+            rm -R resources/dist/ && git checkout -- resources/dist/
+            rm -R resources/global/ && git checkout -- resources/global/
+            rm -R resources/dist/ && git checkout -- resources/dist/
 
-        echo '- Running gulp...'
-        gulp build || echo gulp build execution is FAILED
-        git add resources/dist/
-        git add resources/global/
-        git add dist/
-        commit_results='yes'
-        echo "- Gulp build execution on $2 is successful."
-        echo "- Gulp build execution on $2 is successful." >> hook_log
+            echo '- Running gulp...'
+            gulp build || echo gulp build execution is FAILED
+            git add resources/dist/
+            git add resources/global/
+            git add resources/dist/
+            commit_results='yes'
+            echo "- Gulp build execution on $2 is successful."
+            echo "- Gulp build execution on $2 is successful." >> hook_log
+        fi
     fi
 
     # Detect Vue/Yarn build changes for themes that contain a vue config file.
@@ -82,8 +85,6 @@ rebuildCommitChildTheme() {
             echo '- Cleaning up artefacts of possible previous yarn builds...'
             echo rm -R dist/
             rm -R dist/
-            echo git reset -- dist/
-            git reset -- dist/
 
             echo "- Creating new build for $2..."
             if [ "$c_branch" == 'production' ]; then
